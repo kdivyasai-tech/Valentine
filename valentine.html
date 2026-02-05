@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine Surprise 💝</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg,#ff758c,#ff7eb3);
+  text-align:center;
+  color:#fff;
+  padding:40px;
+}
+.card{
+  background:rgba(255,255,255,0.15);
+  padding:30px;
+  border-radius:20px;
+  max-width:350px;
+  margin:auto;
+}
+button{
+  background:#fff;
+  color:#ff4d6d;
+  border:none;
+  padding:12px 25px;
+  font-size:18px;
+  border-radius:30px;
+  cursor:pointer;
+  margin-top:20px;
+}
+.hidden{display:none;}
+</style>
+</head>
+
+<body>
+<div class="card">
+  <h1>💌 Valentine Question</h1>
+
+  <div id="q1">
+    <p>Do you believe in love at first sight? 😍</p>
+    <button onclick="next()">Yes 💖</button>
+    <button onclick="next()">Maybe 😉</button>
+  </div>
+
+  <div id="q2" class="hidden">
+    <p>Then one last question…</p>
+    <button onclick="show()">Click here 💕</button>
+  </div>
+
+  <div id="final" class="hidden">
+    <h2>Will you be my Valentine? 💍💘</h2>
+    <p>🌹🌹🌹</p>
+  </div>
+</div>
+
+<script>
+function next(){
+  document.getElementById("q1").classList.add("hidden");
+  document.getElementById("q2").classList.remove("hidden");
+}
+function show(){
+  document.getElementById("q2").classList.add("hidden");
+  document.getElementById("final").classList.remove("hidden");
+}
+</script>
+</body>
+</html>
