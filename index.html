@@ -1,109 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Valentine Surprise 💖</title>
+  <meta charset="UTF-8">
+  <title>Valentine Surprise 💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-body {
-  margin: 0;
-  height: 100vh;
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Segoe UI', sans-serif;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
 
-.card {
-  background: #fff;
-  padding: 30px;
-  border-radius: 20px;
-  width: 350px;
-  text-align: center;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-}
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
 
-h1 {
-  color: #ff4d6d;
-}
+    .card {
+      background: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      width: 360px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.25);
+      z-index: 5;
+    }
 
-input {
-  width: 90%;
-  padding: 10px;
-  border-radius: 20px;
-  border: 1px solid #ccc;
-  margin: 15px 0;
-  text-align: center;
-}
+    h1 {
+      color: #e63946;
+      margin-bottom: 15px;
+    }
 
-.buttons {
-  position: relative;
-  height: 80px;
-}
+    input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 20px;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+      text-align: center;
+      font-size: 16px;
+    }
 
-button {
-  padding: 12px 22px;
-  border-radius: 25px;
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
-  position: absolute;
-}
+    .buttons {
+      position: relative;
+      height: 60px;
+    }
 
-#yesBtn {
-  background: #ff4d6d;
-  color: white;
-  left: 50px;
-}
+    button {
+      padding: 12px 24px;
+      border-radius: 25px;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      position: absolute;
+      z-index: 20;
+    }
 
-#noBtn {
-  background: #ccc;
-  right: 50px;
-}
-</style>
+    #yesBtn {
+      background: #e63946;
+      color: white;
+      left: 40px;
+    }
+
+    #noBtn {
+      background: #ccc;
+      right: 40px;
+    }
+
+    .heart {
+      position: fixed;
+      font-size: 24px;
+      animation: floatUp 4s linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) scale(1.8);
+        opacity: 0;
+      }
+    }
+
+    .hook {
+      position: fixed;
+      top: 20px;
+      font-size: 22px;
+      font-weight: bold;
+      color: white;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+      animation: pop 1s ease-in-out infinite alternate;
+    }
+
+    @keyframes pop {
+      from { transform: scale(1); }
+      to { transform: scale(1.1); }
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="card">
-  <h1>Will you be my Valentine? 💘</h1>
-  <input type="text" id="nameInput" placeholder="Enter your name 💕" />
+  <div class="hook">💘 Wait for the NO button 😈</div>
 
-  <div class="buttons">
-    <button id="yesBtn">YES 💖</button>
-    <button id="noBtn">NO 😜</button>
+  <div class="card">
+    <h1>Will you be my Valentine? 💖</h1>
+    <input type="text" id="nameInput" placeholder="Enter your name">
+
+    <div class="buttons">
+      <button id="yesBtn">YES 💘</button>
+      <button id="noBtn">NO 😜</button>
+    </div>
   </div>
-</div>
 
-<audio id="popSound">
-  <source src="https://www.soundjay.com/buttons/sounds/button-16.mp3" type="audio/mpeg">
-</audio>
+  <audio id="yesSound">
+    <source src="https://assets.mixkit.co/sfx/preview/mixkit-achievement-bell-600.mp3">
+  </audio>
 
-<script>
-const noBtn = document.getElementById("noBtn");
-const yesBtn = document.getElementById("yesBtn");
-const nameInput = document.getElementById("nameInput");
-const sound = document.getElementById("popSound");
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const nameInput = document.getElementById("nameInput");
+    const sound = document.getElementById("yesSound");
 
-noBtn.addEventListener("mouseover", () => {
-  const x = Math.random() * 200 - 100;
-  const y = Math.random() * 100 - 50;
-  noBtn.style.transform = translate(${x}px, ${y}px);
-});
+    yesBtn.onclick = () => {
+      const name = nameInput.value || "My Love";
+      sound.play();
 
-yesBtn.addEventListener("click", () => {
-  const name = nameInput.value || "My Love";
-  sound.play();
-  document.body.innerHTML = `
-    <h1 style="color:white; text-align:center;">
-      💖 Yayyy ${name}! 💖<br>
-      Happy Valentine’s Day 😘
-    </h1>
-  `;
-});
-</script>
+      for (let i = 0; i < 25; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerText = "💖";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.bottom = "-20px";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 4000);
+      }
+
+      setTimeout(() => {
+        alert(💘 ${name}, I knew you’d say YES! 💍);
+      }, 300);
+    };
+
+    noBtn.onmouseover = () => {
+      const x = Math.random() * (window.innerWidth - 100);
+      const y = Math.random() * (window.innerHeight - 100);
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    };
+  </script>
 
 </body>
 </html>
