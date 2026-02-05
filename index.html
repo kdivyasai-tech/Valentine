@@ -1,152 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Valentine Surprise 💖</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-  body {
-    margin: 0;
-    height: 100vh;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #ff5f9e, #ff9a9e);
-    font-family: 'Arial', sans-serif;
-  }
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Segoe UI', sans-serif;
+}
 
-  .card {
-    background: white;
-    padding: 30px;
-    border-radius: 20px;
-    text-align: center;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-    z-index: 10;
-  }
+.card {
+  background: #fff;
+  padding: 30px;
+  border-radius: 20px;
+  width: 350px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
 
-  h1 {
-    color: #ff3366;
-  }
+h1 {
+  color: #ff4d6d;
+}
 
-  input {
-    padding: 10px;
-    border-radius: 20px;
-    border: 1px solid #ccc;
-    text-align: center;
-    margin-bottom: 15px;
-    width: 80%;
-  }
+input {
+  width: 90%;
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  margin: 15px 0;
+  text-align: center;
+}
 
-  button {
-    padding: 10px 25px;
-    font-size: 18px;
-    border-radius: 30px;
-    border: none;
-    cursor: pointer;
-    margin: 10px;
-  }
+.buttons {
+  position: relative;
+  height: 80px;
+}
 
-  #yesBtn {
-    background: #ff3366;
-    color: white;
-  }
+button {
+  padding: 12px 22px;
+  border-radius: 25px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  position: absolute;
+}
 
-  #noBtn {
-    background: #ccc;
-    position: absolute;
-  }
+#yesBtn {
+  background: #ff4d6d;
+  color: white;
+  left: 50px;
+}
 
-  .result {
-    display: none;
-    font-size: 24px;
-    color: #ff3366;
-    animation: pulse 1s infinite alternate;
-  }
-
-  @keyframes pulse {
-    from { transform: scale(1); }
-    to { transform: scale(1.1); }
-  }
-
-  .heart {
-    position: fixed;
-    font-size: 24px;
-    animation: floatUp 3s linear forwards;
-  }
-
-  @keyframes floatUp {
-    from {
-      transform: translateY(0);
-      opacity: 1;
-    }
-    to {
-      transform: translateY(-100vh);
-      opacity: 0;
-    }
-  }
+#noBtn {
+  background: #ccc;
+  right: 50px;
+}
 </style>
 </head>
 
 <body>
 
-<audio id="loveSound">
-  <source src="https://www.soundjay.com/human/kiss-1.mp3" type="audio/mpeg">
-</audio>
-
 <div class="card">
-  <h1 id="question">Will you be my Valentine? 💘</h1>
+  <h1>Will you be my Valentine? 💘</h1>
+  <input type="text" id="nameInput" placeholder="Enter your name 💕" />
 
-  <input type="text" id="nameInput" placeholder="Enter your name 💕">
-
-  <div id="buttons">
-    <button id="yesBtn" onclick="yesClicked()">YES 💖</button>
+  <div class="buttons">
+    <button id="yesBtn">YES 💖</button>
     <button id="noBtn">NO 😜</button>
   </div>
-
-  <div class="result" id="resultText"></div>
 </div>
 
+<audio id="popSound">
+  <source src="https://www.soundjay.com/buttons/sounds/button-16.mp3" type="audio/mpeg">
+</audio>
+
 <script>
-  const noBtn = document.getElementById("noBtn");
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const nameInput = document.getElementById("nameInput");
+const sound = document.getElementById("popSound");
 
-  noBtn.addEventListener("mouseover", moveNo);
-  noBtn.addEventListener("touchstart", moveNo);
+noBtn.addEventListener("mouseover", () => {
+  const x = Math.random() * 200 - 100;
+  const y = Math.random() * 100 - 50;
+  noBtn.style.transform = translate(${x}px, ${y}px);
+});
 
-  function moveNo() {
-    const x = Math.random() * (window.innerWidth - 100);
-    const y = Math.random() * (window.innerHeight - 50);
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
-  }
-
-  function yesClicked() {
-    const name = document.getElementById("nameInput").value || "My Love";
-
-    document.getElementById("question").style.display = "none";
-    document.getElementById("buttons").style.display = "none";
-    document.getElementById("nameInput").style.display = "none";
-
-    const result = document.getElementById("resultText");
-    result.innerHTML = Yayyy ${name}! 😍💞<br>Happy Valentine’s Day 💖;
-    result.style.display = "block";
-
-    document.getElementById("loveSound").play();
-
-    setInterval(createHeart, 300);
-  }
-
-  function createHeart() {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerHTML = "💖";
-    heart.style.left = Math.random() * window.innerWidth + "px";
-    heart.style.bottom = "0px";
-    document.body.appendChild(heart);
-
-    setTimeout(() => heart.remove(), 3000);
-  }
+yesBtn.addEventListener("click", () => {
+  const name = nameInput.value || "My Love";
+  sound.play();
+  document.body.innerHTML = `
+    <h1 style="color:white; text-align:center;">
+      💖 Yayyy ${name}! 💖<br>
+      Happy Valentine’s Day 😘
+    </h1>
+  `;
+});
 </script>
 
 </body>
