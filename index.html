@@ -8,7 +8,7 @@
 <style>
 body {
   margin: 0;
-  font-family: 'Arial', sans-serif;
+  font-family: Arial, sans-serif;
   background: pink;
   display: flex;
   justify-content: center;
@@ -17,7 +17,7 @@ body {
   overflow: hidden;
 }
 
-/* ---------- PAGE 1 ---------- */
+/* PAGE 1 */
 #page1 {
   text-align: center;
 }
@@ -51,7 +51,7 @@ button {
   margin-left: 20px;
 }
 
-/* ---------- PAGE 2 ---------- */
+/* PAGE 2 */
 #page2 {
   display: none;
   flex-direction: column;
@@ -64,7 +64,7 @@ button {
   padding: 20px;
 }
 
-/* Gift box */
+/* Gift */
 #gift {
   font-size: 80px;
   cursor: pointer;
@@ -97,7 +97,7 @@ button {
   margin-top: 15px;
 }
 
-/* Image gallery */
+/* Gallery */
 #gallery {
   margin-top: 30px;
   display: grid;
@@ -157,15 +157,16 @@ button {
     </div>
   </div>
 
+  <!-- IMAGE GALLERY (ROOT IMAGES) -->
   <div id="gallery">
-    <img src="images/img1.jpeg">
-    <img src="images/img2.jpeg">
-    <img src="images/img3.jpeg">
-    <img src="images/img4.jpeg">
-    <img src="images/img5.jpeg">
-    <img src="images/img6.jpeg">
-    <img src="images/img7.jpeg">
-    <img src="images/img8.jpeg">
+    <img src="img1.jpeg">
+    <img src="img2.jpeg">
+    <img src="img3.jpeg">
+    <img src="img4.jpeg">
+    <img src="img5.jpeg">
+    <img src="img6.jpeg">
+    <img src="img7.jpeg">
+    <img src="img8.jpeg">
   </div>
 </div>
 
@@ -182,14 +183,12 @@ const msg = document.getElementById("messageBox");
 const music = document.getElementById("music");
 const click = document.getElementById("click");
 
-// No button moves
 no.onmouseenter = () => {
   no.style.position = "absolute";
   no.style.left = Math.random()*80 + "%";
   no.style.top = Math.random()*80 + "%";
 };
 
-// Yes → Page 2
 yes.onclick = () => {
   click.play();
   page1.style.display = "none";
@@ -197,14 +196,12 @@ yes.onclick = () => {
   music.play();
   setInterval(createHeart, 300);
 
-  // auto open gift
   setTimeout(() => {
     gift.innerHTML = "🎉";
     msg.style.display = "block";
   }, 1500);
 };
 
-// Hearts
 function createHeart() {
   const h = document.createElement("div");
   h.className = "heart";
